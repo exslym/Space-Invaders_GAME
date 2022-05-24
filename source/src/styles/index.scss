@@ -114,28 +114,25 @@ button {
 	text-align: center;
 	text-decoration: none;
 	color: inherit;
-	width: 100%;
 	&:hover {
 		background: rgb(228, 228, 228);
 	}
 }
 
 #start {
-	padding: 0 16px;
+	padding: 0 clamp(20px, 4vw, 40px);
 	margin: 0;
 	display: block;
 	left: 50%;
 	top: 50%;
-	max-width: clamp(100px, 30vw, 300px);
 }
 #restart {
-	padding: 0 16px;
+	padding: 0 clamp(20px, 4vw, 40px);
 	margin: 0;
 	display: none;
 	margin-top: clamp(10px, 4vw, 50px);
 	left: 50%;
 	top: 53%;
-	max-width: clamp(140px, 30vw, 300px);
 }
 #endGame {
 	display: none;

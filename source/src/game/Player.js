@@ -2,7 +2,16 @@ import playerSrc from '../../public/images/player.png';
 import soundDeath from '../../public/sounds/enemy-death.wav';
 
 export default class Player {
-	constructor(canvas, velocity, bulletController, width, height) {
+	constructor(
+		canvas,
+		velocity,
+		bulletController,
+		width,
+		height,
+		leftArrow,
+		rightArrow,
+		fireButton
+	) {
 		this.canvas = canvas;
 		this.velocity = velocity;
 		this.bulletController = bulletController;
@@ -17,11 +26,22 @@ export default class Player {
 		this.image = new Image();
 		this.image.src = playerSrc;
 
+		this.leftArrow = leftArrow;
+		this.rightArrow = rightArrow;
+		this.fireButton = fireButton;
+
 		this.deathSound = new Audio(soundDeath);
 		this.deathSound.volume = 0.5;
 
 		document.addEventListener('keydown', this.keydown);
 		document.addEventListener('keyup', this.keyup);
+
+		this.leftArrow.addEventListener('touchstart', this.handleStart);
+		this.leftArrow.addEventListener('touchend', this.handleEnd);
+		this.rightArrow.addEventListener('touchstart', this.handleStart);
+		this.rightArrow.addEventListener('touchend', this.handleEnd);
+		this.fireButton.addEventListener('touchstart', this.handleStart);
+		this.fireButton.addEventListener('touchend', this.handleEnd);
 	}
 
 	rightPressed = false;
@@ -58,11 +78,11 @@ export default class Player {
 	}
 
 	keydown = e => {
-		if (e.code == 'ArrowRight') {
-			this.rightPressed = true;
-		}
 		if (e.code == 'ArrowLeft') {
 			this.leftPressed = true;
+		}
+		if (e.code == 'ArrowRight') {
+			this.rightPressed = true;
 		}
 		if (e.code == 'Space') {
 			this.shootPressed = true;
@@ -70,13 +90,36 @@ export default class Player {
 	};
 
 	keyup = e => {
-		if (e.code == 'ArrowRight') {
-			this.rightPressed = false;
-		}
 		if (e.code == 'ArrowLeft') {
 			this.leftPressed = false;
 		}
+		if (e.code == 'ArrowRight') {
+			this.rightPressed = false;
+		}
 		if (e.code == 'Space') {
+			this.shootPressed = false;
+		}
+	};
+
+	handleStart = e => {
+		if (e.target.id == 'leftArrow') {
+			this.leftPressed = true;
+		}
+		if (e.target.id == 'rightArrow') {
+			this.rightPressed = true;
+		}
+		if (e.target.id == 'fireButton') {
+			this.shootPressed = true;
+		}
+	};
+	handleEnd = e => {
+		if (e.target.id == 'leftArrow') {
+			this.leftPressed = false;
+		}
+		if (e.target.id == 'rightArrow') {
+			this.rightPressed = false;
+		}
+		if (e.target.id == 'fireButton') {
 			this.shootPressed = false;
 		}
 	};

@@ -1,4 +1,7 @@
 import space from '../../public/images/space2.png';
+// import leftArrow from '../../public/images/left.png';
+// import rightArrow from '../../public/images/right.png';
+// import fireButton from '../../public/images/fire.png';
 import Player from './Player';
 import MovingDirection from './MovingDirection';
 import EnemyController from './EnemyController';
@@ -12,10 +15,29 @@ export default function Game() {
 	const box = document.querySelector('.section__content');
 	const ctx = canvas.getContext('2d');
 
+	const leftArrow = document.querySelector('#leftArrow');
+	const rightArrow = document.querySelector('#rightArrow');
+	const fireButton = document.querySelector('#fireButton');
+	const controls = document.querySelector('#controls');
+
+	controls.style.display = 'none';
+
+	// canvas.addEventListener('touchstart', handleStart);
+	// canvas.addEventListener('touchmove', handleMove);
+	// canvas.addEventListener('touchend', handleEnd);
+	// canvas.addEventListener('touchcancel', handleCancel);
+
 	const w = window,
 		d = document,
 		g = d.getElementsByTagName('body')[0],
 		xx = w.innerWidth || g.clientWidth;
+
+	let boxStyle = window.getComputedStyle(box, null);
+	let boxWidth = boxStyle.getPropertyValue('width');
+	let boxHeight = boxStyle.getPropertyValue('height');
+
+	canvas.width = parseInt(boxWidth);
+	canvas.height = parseInt(boxHeight);
 
 	let playerWidth = 50;
 	let playerHeight = 48;
@@ -23,6 +45,10 @@ export default function Game() {
 	if (xx < 1024) {
 		playerWidth = playerWidth * 0.85;
 		playerHeight = playerHeight * 0.85;
+	}
+	if (xx < 769) {
+		canvas.height = canvas.height - canvas.height / 8.5;
+		controls.style.display = 'flex';
 	}
 	if (xx < 600) {
 		playerWidth = playerWidth * 0.7;
@@ -32,13 +58,11 @@ export default function Game() {
 		playerWidth = playerWidth * 0.7;
 		playerHeight = playerHeight * 0.7;
 	}
-
-	let boxStyle = window.getComputedStyle(box, null);
-	let boxWidth = boxStyle.getPropertyValue('width');
-	let boxHeight = boxStyle.getPropertyValue('height');
-
-	canvas.width = parseInt(boxWidth);
-	canvas.height = parseInt(boxHeight);
+	if (xx <= 360) {
+		canvas.height = parseInt(boxHeight);
+		canvas.height = canvas.height - canvas.height / 7.8;
+		controls.style.bottom = '15px';
+	}
 
 	const background = new Image();
 	background.src = space;
@@ -62,7 +86,10 @@ export default function Game() {
 		4,
 		playerBulletController,
 		playerWidth,
-		playerHeight
+		playerHeight,
+		leftArrow,
+		rightArrow,
+		fireButton
 	);
 	const enemyBulletController = new BulletController(canvas, 4, 'red', false);
 	const enemyController = new EnemyController(

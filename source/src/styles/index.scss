@@ -72,6 +72,7 @@ li {
 
 .section {
 	padding: clamp(10px, 40vw, 40px) clamp(10px, 3.9vw, 30px);
+	padding: clamp(16px, 3.9vw, 30px);
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -146,4 +147,29 @@ button {
 	word-break: keep-all;
 	width: 100%;
 	text-align: center;
+}
+.controls {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: fixed;
+	left: 50%;
+	bottom: 20px;
+	transform: translateX(-50%);
+	width: calc(100% - clamp(16px, 3.9vw, 30px) * 2);
+
+	img {
+		display: block;
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		max-width: clamp(80px, 15.625vw, 120px);
+	}
+	&__arrows {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		max-width: clamp(180px, 32.55vw, 250px);
+		width: 100%;
+	}
 }

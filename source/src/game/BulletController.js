@@ -144,7 +144,6 @@ export default class BulletController {
 			if (this.soundEnabled) {
 				this.shootSound.currentTime = 0;
 				this.shootSound.play();
-				console.log(this.shootSound);
 
 				/* 	// for random sounds:
 				let shootSound = this.getRandomItem(this.sounds);

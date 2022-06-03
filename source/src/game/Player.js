@@ -103,12 +103,18 @@ export default class Player {
 
 	handleStart = e => {
 		if (e.target.id == 'leftArrow') {
+			e.preventDefault();
+			e.stopPropagation();
 			this.leftPressed = true;
 		}
 		if (e.target.id == 'rightArrow') {
+			e.preventDefault();
+			e.stopPropagation();
 			this.rightPressed = true;
 		}
 		if (e.target.id == 'fireButton') {
+			e.preventDefault();
+			e.stopPropagation();
 			this.shootPressed = true;
 		}
 	};

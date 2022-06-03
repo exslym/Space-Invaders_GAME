@@ -1,6 +1,17 @@
 import Enemy from './Enemy';
 import MovingDirection from './MovingDirection';
-import soundDeath from '../../public/sounds/enemy-death.wav';
+import sound from '../../public/sounds/enemy-death.wav';
+/* // for iOS:
+import sound1 from '../../public/sounds/enemy-death1.wav';
+import sound2 from '../../public/sounds/enemy-death2.wav';
+import sound3 from '../../public/sounds/enemy-death3.wav';
+import sound4 from '../../public/sounds/enemy-death4.wav';
+import sound5 from '../../public/sounds/enemy-death5.wav';
+import sound6 from '../../public/sounds/enemy-death6.wav';
+import sound7 from '../../public/sounds/enemy-death7.wav';
+import sound8 from '../../public/sounds/enemy-death8.wav';
+import sound9 from '../../public/sounds/enemy-death9.wav';
+import sound10 from '../../public/sounds/enemy-death10.wav'; */
 
 let w = window,
 	d = document,
@@ -14,12 +25,12 @@ let heightRatio = 1.36;
 let defaultXVelocityRatio = 1.6;
 let defaultYVelocityRatio = 1;
 
-if (xx < 1024) {
+if (xx <= 1024) {
 	enemyWidth = enemyWidth * 0.85;
 	enemyHeight = enemyHeight * 0.85;
 }
 
-if (xx < 600) {
+if (xx <= 600) {
 	enemyWidth = enemyWidth * 0.7;
 	enemyHeight = enemyHeight * 0.7;
 	widthRatio = widthRatio * 1.1;
@@ -27,7 +38,7 @@ if (xx < 600) {
 	defaultXVelocityRatio = 1;
 	defaultYVelocityRatio = 0.7;
 }
-if (xx < 425) {
+if (xx <= 425) {
 	enemyWidth = enemyWidth * 0.55;
 	enemyHeight = enemyHeight * 0.55;
 	widthRatio = widthRatio * 1.2;
@@ -61,10 +72,38 @@ export default class EnemyController {
 		this.canvas = canvas;
 		this.enemyBulletController = enemyBulletController;
 		this.playerBulletController = playerBulletController;
-		this.enemyDeathSound = new Audio(soundDeath);
+		this.createEnemies();
+
+		this.enemyDeathSound = new Audio(sound);
 		this.enemyDeathSound.volume = 0.5;
 
-		this.createEnemies();
+		/* 		this.deathSound1 = new Audio(sound1);
+		this.deathSound2 = new Audio(sound2);
+		this.deathSound3 = new Audio(sound3);
+		this.deathSound4 = new Audio(sound4);
+		this.deathSound5 = new Audio(sound5);
+		this.deathSound6 = new Audio(sound6);
+		this.deathSound7 = new Audio(sound7);
+		this.deathSound8 = new Audio(sound8);
+		this.deathSound9 = new Audio(sound9);
+		this.deathSound10 = new Audio(sound10);
+
+		this.sounds = [
+			this.deathSound1,
+			this.deathSound2,
+			this.deathSound3,
+			this.deathSound4,
+			this.deathSound5,
+			this.deathSound6,
+			this.deathSound7,
+			this.deathSound8,
+			this.deathSound9,
+			this.deathSound10,
+		];
+
+		this.sounds.forEach(function (item) {
+			item.volume = 0.5;
+		}); */
 	}
 
 	draw(ctx) {
@@ -76,12 +115,35 @@ export default class EnemyController {
 		this.fireBullet();
 	}
 
+	/* 	copyArray = [];
+	getRandomItem(array) {
+		if (this.copyArray.length === 0) {
+			for (let i = 0; i < array.length; i++) this.copyArray.push(i);
+		}
+		let randomIndexCopyArray = Math.floor(
+			Math.random() * this.copyArray.length
+		);
+		let randomIndexOriginalArray = this.copyArray[randomIndexCopyArray];
+
+		this.copyArray.splice(randomIndexCopyArray, 1);
+		this.item = array[randomIndexOriginalArray];
+
+		return this.item;
+	} */
+
 	collisionDetection() {
 		this.enemyRows.forEach(enemyRow => {
 			enemyRow.forEach((enemy, enemyIndex) => {
 				if (this.playerBulletController.collideWith(enemy)) {
 					this.enemyDeathSound.currentTime = 0;
 					this.enemyDeathSound.play();
+
+					// for random sounds:
+					/* 					let deathSound = this.getRandomItem(this.sounds);
+					deathSound.currentTime = 0;
+					deathSound.play();
+					// console.log(deathSound); */
+
 					enemyRow.splice(enemyIndex, 1);
 				}
 			});

@@ -24,7 +24,7 @@
 }
 
 body {
-	background-color: var(--color-white);
+	background-color: var(--color-dark);
 	font-family: var(--font-main);
 	font-style: normal;
 	font-weight: 400;
@@ -49,7 +49,6 @@ li {
 	font-feature-settings: 'pnum' on, 'lnum' on;
 }
 .wrapper {
-	background-color: var(--color-dark);
 	overflow: hidden;
 	display: -webkit-box;
 	display: -ms-flexbox;
@@ -64,8 +63,9 @@ li {
 	-webkit-box-direction: normal;
 	-ms-flex-direction: column;
 	flex-direction: column;
-	min-height: 100%;
-	width: 100%;
+	// width: 100%;
+	// min-height: 100%;
+	height: 100vh;
 	margin: 0 auto;
 	padding: 0;
 }
@@ -83,12 +83,12 @@ li {
 	-ms-flex-pack: center;
 	justify-content: center;
 	width: 100%;
-	height: 100vh;
+	height: 100%;
 	position: relative;
 	&__content {
 		margin: 0 auto;
 		max-width: calc(
-			clamp(900px, 67.36vw, 1280px) + clamp(20px, 3.9vw, 30px) * 2
+			clamp(900px, 67.36vw, 1280px) + clamp(16px, 3.9vw, 30px) * 2
 		);
 		width: 100%;
 		height: 100%;
@@ -96,8 +96,8 @@ li {
 }
 
 canvas {
-	max-width: calc(clamp(900px, 67.36vw, 1280px) + clamp(20px, 3.9vw, 30px) * 2);
-	width: 100%;
+	// max-width: calc(clamp(900px, 67.36vw, 1280px) + clamp(16px, 3.9vw, 30px) * 2);
+	// width: 100%;
 	border-radius: 5px;
 	outline: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -152,6 +152,7 @@ button {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	margin: 0 auto;
 	position: fixed;
 	left: 50%;
 	bottom: 20px;
@@ -171,5 +172,15 @@ button {
 		justify-content: space-between;
 		max-width: clamp(180px, 32.55vw, 250px);
 		width: 100%;
+	}
+}
+@media (max-width: 425px) {
+	.controls {
+		img {
+			max-width: clamp(60px, 18.82vw, 80px);
+		}
+		&__arrows {
+			max-width: clamp(140px, 42.35vw, 180px);
+		}
 	}
 }

@@ -1,7 +1,6 @@
+/* // for iOS
+import soundSource from '../../public/sounds/shoot.wav'; */
 import space from '../../public/images/space2.png';
-// import leftArrow from '../../public/images/left.png';
-// import rightArrow from '../../public/images/right.png';
-// import fireButton from '../../public/images/fire.png';
 import Player from './Player';
 import MovingDirection from './MovingDirection';
 import EnemyController from './EnemyController';
@@ -22,11 +21,6 @@ export default function Game() {
 
 	controls.style.display = 'none';
 
-	// canvas.addEventListener('touchstart', handleStart);
-	// canvas.addEventListener('touchmove', handleMove);
-	// canvas.addEventListener('touchend', handleEnd);
-	// canvas.addEventListener('touchcancel', handleCancel);
-
 	const w = window,
 		d = document,
 		g = d.getElementsByTagName('body')[0],
@@ -42,26 +36,42 @@ export default function Game() {
 	let playerWidth = 50;
 	let playerHeight = 48;
 
-	if (xx < 1024) {
+	if (xx <= 1024) {
 		playerWidth = playerWidth * 0.85;
 		playerHeight = playerHeight * 0.85;
 	}
-	if (xx < 769) {
-		canvas.height = canvas.height - canvas.height / 8.5;
+	if (xx <= 768) {
+		canvas.height = canvas.height * 0.76;
 		controls.style.display = 'flex';
+		startButton.style.top = `${
+			parseInt(boxHeight) / 2 - (parseInt(boxHeight) - canvas.height) / 2
+		}px`;
+		restartButton.style.top = `${
+			parseInt(boxHeight) / 2 - (parseInt(boxHeight) - canvas.height) / 3.2
+		}px`;
+		endGame.style.top = `${
+			parseInt(boxHeight) / 2 - (parseInt(boxHeight) - canvas.height) / 1.4
+		}px`;
 	}
-	if (xx < 600) {
+	if (xx <= 600) {
 		playerWidth = playerWidth * 0.7;
 		playerHeight = playerHeight * 0.7;
 	}
-	if (xx < 400) {
+	if (xx <= 400) {
 		playerWidth = playerWidth * 0.7;
 		playerHeight = playerHeight * 0.7;
 	}
 	if (xx <= 360) {
-		canvas.height = parseInt(boxHeight);
-		canvas.height = canvas.height - canvas.height / 7.8;
 		controls.style.bottom = '15px';
+		startButton.style.top = `${
+			parseInt(boxHeight) / 2 - (parseInt(boxHeight) - canvas.height) / 2.2
+		}px`;
+		restartButton.style.top = `${
+			parseInt(boxHeight) / 2 - (parseInt(boxHeight) - canvas.height) / 3.2
+		}px`;
+		endGame.style.top = `${
+			parseInt(boxHeight) / 2 - (parseInt(boxHeight) - canvas.height) / 1.4
+		}px`;
 	}
 
 	const background = new Image();
@@ -144,6 +154,27 @@ export default function Game() {
 		}
 	}
 
+	/* 	// for iOS
+	const sound = new Audio(soundSource);
+	sound.volume = 0.5;
+	const startSound = function () {
+		startButton.removeEventListener('click', startSound);
+		restartButton.removeEventListener('click', startSound);
+		sound.currentTime = 0;
+		sound.play();
+	};
+	// let isIOS = /iPad|iPhone|iPod/.test(navigator.platform);
+	// if (isIOS) startButton.addEventListener('click', startSound); */
+
+	startButton.addEventListener('click', function () {
+		startButton.style.display = 'none';
+		isGameOver = false;
+		didWin = false;
+
+		StartAnimation();
+		// startSound();
+	});
+
 	restartButton.addEventListener('click', function () {
 		restartButton.style.display = 'none';
 		endGame.style.display = 'none';
@@ -153,14 +184,7 @@ export default function Game() {
 		ResetCanvas();
 		StopAnimation();
 		StartAnimation();
-	});
-
-	startButton.addEventListener('click', function () {
-		startButton.style.display = 'none';
-		isGameOver = false;
-		didWin = false;
-
-		StartAnimation();
+		// startSound();
 	});
 
 	function ResetCanvas() {

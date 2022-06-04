@@ -40,6 +40,16 @@ if (xx <= 425) {
 	heightRatio = heightRatio * 1.1;
 }
 
+Audio.prototype.stop = function () {
+	this.pause();
+	this.currentTime = 0;
+};
+Audio.prototype.restart = function () {
+	this.pause();
+	this.currentTime = 0;
+	this.play();
+};
+
 export default class BulletController {
 	bullets = [];
 	timeTillNextBulletAllowed = 0;
@@ -63,6 +73,13 @@ export default class BulletController {
 		this.shootSound8 = new Audio(sound8);
 		this.shootSound9 = new Audio(sound9);
 		this.shootSound10 = new Audio(sound10);
+
+		// this.shootSound1 = new Audio(sound);
+		// this.shootSound2 = new Audio(sound);
+		// this.shootSound3 = new Audio(sound);
+		// this.shootSound4 = new Audio(sound);
+		// this.shootSound5 = new Audio(sound);
+		// this.shootSound6 = new Audio(sound);
 
 		this.sounds = [
 			this.shootSound1,
@@ -126,6 +143,16 @@ export default class BulletController {
 	return this.item;
 	} */
 
+	/* 	arrayIndex = 0;
+	getItem(array) {
+		this.item = array[this.arrayIndex++];
+		if (this.arrayIndex === array.length) {
+			this.arrayIndex = 0;
+		}
+		this.item.stop();
+		return this.item;
+	} */
+
 	shoot(x, y, velocity, timeTillNextBulletAllowed = 0) {
 		if (
 			this.timeTillNextBulletAllowed <= 0 &&
@@ -142,13 +169,19 @@ export default class BulletController {
 			);
 			this.bullets.push(bullet);
 			if (this.soundEnabled) {
-				this.shootSound.currentTime = 0;
-				this.shootSound.play();
+				this.shootSound.restart();
+
+				// this.shootSound.currentTime = 0;
+				// this.shootSound.play();
 
 				/* 	// for random sounds:
 				let shootSound = this.getRandomItem(this.sounds);
 				shootSound.currentTime = 0;
 				shootSound.play();
+				// console.log(shootSound); */
+
+				/* 	let shootSound = this.getItem(this.sounds);
+				shootSound.restart();
 				// console.log(shootSound); */
 			}
 			this.timeTillNextBulletAllowed = timeTillNextBulletAllowed;

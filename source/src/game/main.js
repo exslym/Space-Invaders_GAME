@@ -1,5 +1,5 @@
-/* // for iOS
-import soundSource from '../../public/sounds/shoot.wav'; */
+// for iOS
+import soundSource from '../../public/sounds/shoot.wav';
 import space from '../../public/images/space2.png';
 import Player from './Player';
 import MovingDirection from './MovingDirection';

@@ -47,6 +47,16 @@ if (xx <= 425) {
 	defaultYVelocityRatio = 0.6;
 }
 
+Audio.prototype.stop = function () {
+	this.pause();
+	this.currentTime = 0;
+};
+Audio.prototype.restart = function () {
+	this.pause();
+	this.currentTime = 0;
+	this.play();
+};
+
 export default class EnemyController {
 	enemyMap = [
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -131,17 +141,33 @@ export default class EnemyController {
 		return this.item;
 	} */
 
+	/* 	arrayIndex = 0;
+	getItem(array) {
+		this.item = array[this.arrayIndex++];
+		if (this.arrayIndex === array.length) {
+			this.arrayIndex = 0;
+		}
+		this.item.stop();
+		return this.item;
+	} */
+
 	collisionDetection() {
 		this.enemyRows.forEach(enemyRow => {
 			enemyRow.forEach((enemy, enemyIndex) => {
 				if (this.playerBulletController.collideWith(enemy)) {
-					this.enemyDeathSound.currentTime = 0;
-					this.enemyDeathSound.play();
+					this.enemyDeathSound.restart();
+
+					// this.enemyDeathSound.currentTime = 0;
+					// this.enemyDeathSound.play();
 
 					// for random sounds:
 					/* 					let deathSound = this.getRandomItem(this.sounds);
 					deathSound.currentTime = 0;
 					deathSound.play();
+					// console.log(deathSound); */
+
+					/* 					let deathSound = this.getItem(this.sounds);
+					deathSound.restart();
 					// console.log(deathSound); */
 
 					enemyRow.splice(enemyIndex, 1);

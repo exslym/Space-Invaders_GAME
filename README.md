@@ -10,10 +10,16 @@ npm install
 npm start
 ```
 
-### Build Prod Version
+### Build Production Version
 
 ```
 npm run build
+```
+
+### Preview Build Production Version
+
+```
+npm run serve
 ```
 
 ### Deployment on GitHub Pages (Optional)
@@ -26,17 +32,20 @@ This adds gh-pages branch to your project github repository, deploys built proje
 
 ### Features:
 
-- `ES6` Support **via babel (v7)**
-- `SASS` Support via **sass-loader**
-- `Linting` via **eslint** & **@babel/eslint-parser**
-- `Formatter` via **prettier**
-- `Autoprefix` via **postcss-preset-env**
-- `Image Optimization` via **image-minimizer-webpack-plugin** & **svgo**
+- `Legacy Browsers` support via **@vite/plugin-legacy** with built-in **babel**
+- `SCSS` support via **sass**
+- `Linting` support via **eslint**
+- `Formatter` support via **prettier**
+- `Autoprefix` support via **postcss**
+- `Image Optimization` support via **vite-plugin-image-optimizer**
 
 ### When you run `npm run build`:
-- The css file moves to a separate bundle file and gets it included in the head of the `index.html`
-<br />via [mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin).
-- All image files (svg, png, jpg/jpeg, webp) gets compressed with lossless quality
-<br />via [image-minimizer-webpack-plugin](https://github.com/webpack-contrib/image-minimizer-webpack-plugin).
 
-Place all external connected files (jQuery and others) in ./tools and provide them path in html file.
+- All image files (svg, png, jpg/jpeg, tiff, gif, webp, avif) gets compressed with lossless quality
+  <br />via [vite-plugin-image-optimizer](https://github.com/FatehAK/vite-plugin-image-optimizer).
+
+Place all external connected js files (e.g. jQuery and others) in `./public/tools` and provide them path in each \*.html page file (like this: `<script src="tools/jquery-3.6.3.min.js"></script>`).
+
+Place all external connected css files (e.g. normalize.min.css and others) in `./src/assets/tools` and provide them path in index.scss file (like this: `@import url('../assets/tools/normalize.min.css');`).
+
+Write the `PROJECT NAME` and each `PAGE TITLE` in the `<head>` section of html files. They will be used in Google Analytics code below.
